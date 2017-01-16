@@ -4,7 +4,7 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  if(obj === null) {
+  if (obj === null) {
   	return "null";
   } else if (typeof obj === "string") {
   	return "\"" + obj + "\"";
@@ -13,7 +13,7 @@ var stringifyJSON = function(obj) {
   } else if (Array.isArray(obj)) {
   	var arrayString = [];	
 
-  	for(var i = 0; i < obj.length; i++) {
+  	for (var i = 0; i < obj.length; i++) {
   		var result = stringifyJSON(obj[i]);
 
   		arrayString.push(result);
@@ -22,7 +22,23 @@ var stringifyJSON = function(obj) {
   	var arrayStringFinished = arrayString.join(",");
 
   	return "[" + arrayStringFinished + "]";
-  } 
+  } else if (typeof obj === "undefined" || typeof obj === "function") {
+  	return; 
+  }	else {
+  	var objectString = [];
+  	for(var key in obj) {
+  		if(typeof obj[key] === "function" || typeof obj[key] === "undefined") {
+  		} else {
+  			var value = stringifyJSON(obj[key]);
+  			var key = stringifyJSON(key);
+  			objectString.push((key + ":" + value));
+  		}
+  	}
+
+  	var objectStringFinished = objectString.join(",");
+
+  	return "{" + objectStringFinished + "}";
+  };
 };
 
-console.log(stringifyJSON(8));
+console.log(JSON.stringify());
