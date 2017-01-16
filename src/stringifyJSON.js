@@ -41,4 +41,4 @@ var stringifyJSON = function(obj) {
   };
 };
 
-console.log(JSON.stringify());
+
